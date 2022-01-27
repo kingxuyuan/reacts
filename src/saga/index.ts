@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-25 19:35:18
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-26 19:04:12
+ * @LastEditTime: 2022-01-27 12:09:00
  * @Description: saga 状态管理
  */
 import { createStore, applyMiddleware } from 'redux';
@@ -16,15 +16,9 @@ import rootSaga from './rootSaga';
 const sagaMiddleware = createSagaMiddleware();
 
 // Mount it on the Store
-const store = createStore(
-    rootReducer,
-    applyMiddleware(sagaMiddleware)
-);
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
 // Run the saga
 sagaMiddleware.run(rootSaga);
-
-console.log(store);
-
 
 export default store;

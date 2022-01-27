@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 14:17:08
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-25 18:49:44
+ * @LastEditTime: 2022-01-27 14:23:27
  * @Description: 
  */
 import { FC, useEffect, memo } from 'react';
@@ -35,6 +35,7 @@ const Home: FC<indexProps> = (props) => {
                 configs?.android_download_link
             }
             </p>
+            <h3>s</h3>
         </div>
     );
 }

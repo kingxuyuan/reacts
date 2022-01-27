@@ -2,17 +2,13 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-25 12:53:50
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-25 19:12:41
+ * @LastEditTime: 2022-01-27 16:32:52
  * @Description: 封装路由容器组件
  */
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import NProgress from "nprogress";
-import "nprogress/nprogress.css";
 
 import { getRouterBefore } from './RouterFn';
-
-NProgress.configure({ showSpinner: false });
 
 interface RouteProps {
     element: any,
@@ -22,14 +18,8 @@ interface RouteProps {
 let temp:any = null; // 用于防止重复渲染
 
 const RouteGuard: FC<RouteProps> = ({element, meta = {}}) => {
-    NProgress.done();
-  
     const { pathname  } = useLocation();
     const handleRouterBefore = getRouterBefore();
-
-    useEffect(() => {   
-        return () => NProgress.done();
-    }, [])
 
     if(handleRouterBefore) {
         if(temp === element) return element;
@@ -38,7 +28,6 @@ const RouteGuard: FC<RouteProps> = ({element, meta = {}}) => {
     }
 
     temp = element;
-    NProgress.start();
     return element;
 }
 

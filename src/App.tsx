@@ -2,14 +2,15 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 13:01:43
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-26 19:00:00
+ * @LastEditTime: 2022-01-27 12:20:46
  * @Description: 
  */
 import { ComponentType, FC, memo, useEffect } from 'react';
 import { BrowserRouter, useRoutes } from 'react-router-dom';
 import { compose } from 'redux';
 import { useDispatch, useSelector, batch } from 'react-redux';
-import { configActions } from '@/store/config/configActions';
+// import { configActions } from '@/store/config/configActions';
+import { fetchConfigRequest } from '@/saga/config/actions';
 
 // import store from '@/store';
 import store from '@/saga';
@@ -29,7 +30,7 @@ const MainRouter = () => {
     }
     
     useEffect(() => {
-        dispath(configActions(successFn))
+        dispath(fetchConfigRequest(successFn))
         // batch(() => {
         //     dispatch(increment());
         //     dispatch(increment());

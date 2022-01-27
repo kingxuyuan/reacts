@@ -2,23 +2,35 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 15:12:30
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-25 14:36:25
+ * @LastEditTime: 2022-01-27 18:08:13
  * @Description: 
  */
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import './index.scss';
+import Sider from '@/components/Sider';
+import Header from '@/components/Header';
+import Navbar from '@/components/Navbar';
 
-interface LayoutProps {
-
-}
+interface LayoutProps {}
 
 const Layout: FC<LayoutProps> = (props) => {
     return (
         <div className="layout">
-            <h1>内页的布局</h1>
-            <Outlet />
+            <Sider />
+            <div className="layout-sider-blank"></div>
+            <div className="layout-content">
+                <Header />
+                <div className="layout-header-blank"></div>
+                
+                <Navbar />
+
+                <div className="layout-main">
+                    <Outlet />
+                </div>
+                <div className="layout-footer">Ant Design Admin ©2020 zuiidea</div>
+            </div>
         </div>
     );
 }

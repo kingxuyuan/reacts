@@ -2,19 +2,19 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 13:01:43
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-24 19:02:24
+ * @LastEditTime: 2022-01-27 16:17:39
  * @Description: 
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <App />,
-    </React.StrictMode>,
+    // </React.StrictMode>,
     document.getElementById('root')
 );
 
