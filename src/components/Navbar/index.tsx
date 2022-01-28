@@ -2,77 +2,130 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-27 15:18:26
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-27 19:58:50
+ * @LastEditTime: 2022-01-28 21:09:29
  * @Description: 
  */
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, memo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { LeftOutlined, RightOutlined, CloseOutlined } from '@ant-design/icons';
 import classnames from 'classnames';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import sessionCache from '@/utils/sessionCache';
+import { MENUS, RouterTypes } from '@/router/routes';
+import { setRouteHistory, getRouteHistory, deleteRoute } from '@/store/config/configReducer';
 
 import './index.scss';
 
 interface indexProps { };
 
-const navs = [
-    { id: 1, title: '首页1', path: '' },
-    { id: 2, title: '首页2', path: '' },
-    { id: 3, title: '首页3', path: '' },
-    { id: 4, title: '首页4', path: '' },
-    { id: 5, title: '首页5', path: '' },
-    { id: 6, title: '首页6', path: '' },
-    { id: 7, title: '首页7', path: '' },
-    { id: 8, title: '首页8', path: '' },
-    { id: 9, title: '首页9', path: '' },
-    { id: 10, title: '首页10', path: '' },
-    { id: 11, title: '首页11', path: '' },
-    { id: 12, title: '首页12', path: '' },
-    { id: 13, title: '首页13', path: '' },
-    { id: 14, title: '首页14', path: '' },
-    { id: 15, title: '首页15', path: '' },
-    { id: 16, title: '首页16', path: '' },
-    { id: 17, title: '首页17', path: '' },
-    { id: 18, title: '首页18', path: '' },
-    { id: 19, title: '首页19', path: '' },
-    { id: 20, title: '首页20', path: '' },
-    { id: 21, title: '首页21', path: '' },
-    { id: 22, title: '首页22', path: '' },
-    { id: 23, title: '首页23', path: '' },
-]
+// 导航列表过滤
+const routeFn = (arr: RouterTypes[]): any[] => {
+    return arr
+        .map((item: RouterTypes) => {
+            if (item.children) {
+                return routeFn(item.children);
+            }
+            return {
+                path: item.path,
+                title: item.title
+            };
+        })
+        .flat(Infinity);
+};
 
 const Navbar: FC<indexProps> = (props) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const routeHistory = useSelector(getRouteHistory);
+    const rootRoute = routeFn(MENUS);
 
     const [left, setLeft] = useState(0);
     const [tabWidth, setTabWidth] = useState(0);
-    const [currentTabIndex, setCurrentTabIndex] = useState(0);
+    const [currentTabIndex, setCurrentTabIndex] = useState(sessionCache.sessionGet('idx') || 0);
 
-    const tabClick = (idx: number) => {
+    // 点击导航
+    const tabClick = (idx: number, path: string, e: Event | any) => {
+        e?.preventDefault();
         setCurrentTabIndex(idx);
+        if(path === pathname) return;
+        navigate(path);
+    };
+
+    // 上一个导航
+    const prevTabs = () => {
+        if (currentTabIndex <= 0) setCurrentTabIndex(0);
+        else {
+            const idx = currentTabIndex - 1;
+            setCurrentTabIndex(idx);
+        };
+
+        console.log(currentTabIndex);
+        
+        // navigate(routeHistory[currentTabIndex] || '/home');
+    };
+
+    // 下一个导航
+    const nextTabs = () => {
+        if (currentTabIndex >= routeHistory.length - 1)  setCurrentTabIndex(routeHistory.length - 1);
+        else {
+            const idx = currentTabIndex + 1;
+            setCurrentTabIndex(idx);
+        }
+        
+        console.log(currentTabIndex);
+        // navigate(routeHistory[currentTabIndex]);
+    };
+
+    // 导航的宽度
+    const sumWidthFn = (list: any[]): number => {
+        let sum = 0;
+        for (let i = 0; i < list.length; i++) {
+            sum += list[i].offsetWidth
+        };
+        return sum;
+    };
+
+    // 过滤路由title
+    const filterTitle = (path: string): string => {
+        const currentTitle: any = rootRoute.filter(item => item.path.includes(path))[0];
+        return currentTitle?.title || '';
+    };
+
+    // 从导航列表删除一个路由
+    const closeRoute = (path: string, e: Event | any) => {
+        e?.preventDefault();
+        dispatch(deleteRoute({ path, fn: deleteSuccess }));
+    };
+
+    // 删除成功
+    const deleteSuccess = () => {
+        console.log('删除成功！');
+        
     }
 
-    const prevTabs = () => {
-        if (currentTabIndex <= 0) {
-            setCurrentTabIndex(0);
-        } else setCurrentTabIndex(currentTabIndex - 1);
-    };
+    // 保存导航列表
+    useEffect(() => {
+        if (!routeHistory.includes(pathname)) dispatch(setRouteHistory(pathname));
+    }, [pathname]);
 
-    const nextTabs = () => {
-        if (currentTabIndex >= navs.length - 1) {
-            setCurrentTabIndex(navs.length - 1);
-        } else setCurrentTabIndex(currentTabIndex + 1);
-    };
-
+    // 导航动画效果
     useEffect(() => {
         const tab = document.querySelector('.tab');
         const wrap: any = document.querySelector('.layout-navbar-wrap');
-        const currentTab: any = tab?.children[currentTabIndex];
+        const tabDoms: any = tab?.children;
+        console.log(routeHistory, routeHistory[currentTabIndex]);
+        
+        const currentTab: any = tabDoms[currentTabIndex];
         const currentLrft = currentTab?.offsetLeft + currentTab?.offsetWidth;
         let computedStyle: any;
         if ((window as any).getComputedStyle) {
             computedStyle = getComputedStyle(currentTab, null);
         } else {
-            computedStyle = currentTab.currentStyle;//兼容IE的写法
+            computedStyle = currentTab?.currentStyle;//兼容IE的写法
         }
-        const tabWidth = currentTab.offsetWidth * navs.length + parseInt(computedStyle.marginLeft) * (navs.length - 1);
+
+        const tabWidth = sumWidthFn(tabDoms) + parseInt(computedStyle.marginLeft) * (routeHistory.length - 1);
         setTabWidth(tabWidth);
 
         if (currentLrft - wrap.offsetWidth / 2 < 0) setLeft(0);
@@ -80,7 +133,7 @@ const Navbar: FC<indexProps> = (props) => {
 
         if (currentLrft - wrap.offsetWidth / 2 > tabWidth - wrap.offsetWidth) setLeft(tabWidth - wrap.offsetWidth);
 
-    }, [currentTabIndex]);
+    }, [currentTabIndex, routeHistory.length]);
 
     return (
         <div className="layout-navbar">
@@ -88,13 +141,15 @@ const Navbar: FC<indexProps> = (props) => {
             <div className='layout-navbar-wrap'>
                 <div className="tab" style={{ width: tabWidth + 'px', transform: `translateX(-${left}px)` }}>
                     {
-                        navs.map((item, idx) => (
+                        routeHistory.map((item, idx) => (
                             <div
-                                className={classnames('tab-item', { active: currentTabIndex === idx })}
-                                key={item.id}
-                                onClick={() => tabClick(idx)}
+                                className={classnames('tab-item', { active: pathname === routeHistory[idx] })}
+                                key={idx}
+                                onClick={(e) => tabClick(idx, item, e)}
                             >
-                                {item.title}
+                                {pathname === routeHistory[idx] && <div className='circle'></div>}
+                                <span>{filterTitle(item)}</span>
+                                {item !== '/home' && <CloseOutlined className='close' onClick={(e) => closeRoute(item, e)} />}
                             </div>
                         ))
                     }
@@ -105,4 +160,4 @@ const Navbar: FC<indexProps> = (props) => {
     );
 }
 
-export default Navbar;
+export default memo(Navbar);

@@ -6,4 +6,96 @@
     left: 0;
     z-index: 9;
     background-color: #001529;
+    @include flexCenterBetween();
+    &-left {
+        min-width: $sider-width;
+        padding-left: 10px;
+        box-sizing: border-box;
+        @include flexItemsCenter();
+        img {
+            width: 30px;
+            margin-right: 6px;
+        }
+        h1 {
+            color: #fff;
+            font-size: $font-size-18;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+    }
+    &-right {
+        flex: 1;
+        height: 100%;
+        color: #fff;
+        padding: 0 14px;
+        box-sizing: border-box;
+        @include flexCenterBetween();
+        .breadcrumb {
+
+        }
+        .info-nav {
+            margin: 0;
+            height: 100%;
+            @include flexItemsCenter();
+            &-item {
+                height: 100%;
+                padding: 0 14px;
+                @include flexItemsCenter();
+                .anticon {
+                    cursor: pointer;
+                    font-size: $font-size-20;
+                }
+                &:hover {
+                    background-color: rgba(255, 255, 255, .1);
+                }
+            }
+            .user-info {
+                cursor: pointer;
+                margin-left: 24px;
+            }
+            .avatar {
+                @include flexItemsCenter();
+                img {
+                    width: 28px;
+                    border-radius: 50%;
+                    margin-right: 6px;
+                }
+            }
+            .notice {
+                width: 48px;
+                @include flexCenter();
+                .ant-badge-count {
+                    top: -4px;
+                    right: -2px;
+                    padding: 0;
+                    box-shadow: none;
+                }
+            }
+            .search {
+                padding-right: 6px;
+                &-icon {
+                    height: 100%;
+                    margin-right: 8px;
+                    @include flexCenter();
+                }
+                .ant-input {
+                    padding: 0 10px;
+                }
+                .input-box {
+                    overflow: hidden;
+                    transition: width .3s;
+                }
+            }
+        }
+    }
+}
+
+.users {
+    min-width: 124px !important;
+    .ant-dropdown-menu-item {
+        padding-left: 20px;
+    }
+    .ant-dropdown-menu-item:last-child {
+        border-top: 1px solid #f0f0f0;
+    }
 }

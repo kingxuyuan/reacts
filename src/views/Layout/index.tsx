@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 15:12:30
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-27 18:08:13
+ * @LastEditTime: 2022-01-28 13:19:31
  * @Description: 
  */
 import { FC } from 'react';
@@ -19,7 +19,6 @@ const Layout: FC<LayoutProps> = (props) => {
     return (
         <div className="layout">
             <Sider />
-            <div className="layout-sider-blank"></div>
             <div className="layout-content">
                 <Header />
                 <div className="layout-header-blank"></div>

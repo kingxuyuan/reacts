@@ -2,18 +2,12 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 14:34:16
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-27 16:43:23
+ * @LastEditTime: 2022-01-28 19:00:03
  * @Description: 
  */
 import { Navigate } from 'react-router-dom';
 import { lazyLoad } from './RouterFn';
-import { setRouterBefore } from './RouterFn';
 import { AppstoreOutlined, MailOutlined, SettingOutlined, FileImageOutlined } from '@ant-design/icons';
-
-interface metaTypes {
-    title: string
-    auth: boolean
-}
 
 interface routeTypes {
     path: string
@@ -50,7 +44,7 @@ const routes: RouterTypes[] = [
                 icon: <MailOutlined />,
                 element: lazyLoad(() => import('@/views/Home'), {
                     title: '首页',
-                    auth: false,
+                    auth: true,
                 })
             },
             {
@@ -59,36 +53,9 @@ const routes: RouterTypes[] = [
                 icon: <AppstoreOutlined />,
                 element: lazyLoad(() => import('@/views/Mine'), {
                     title: '我的',
-                    auth: false,
+                    auth: true,
                 })
             },
-            {
-                path: '/exception',
-                title: "异常页",
-                icon: <FileImageOutlined />,
-                children: [
-                    {
-                        path: '',
-                        element: <Navigate to={'/error403'} />
-                    },
-                    {
-                        path: "/exception/error403",
-                        title: "异常403",
-                        element: lazyLoad(() => import(/* error403 */ '@/views/Exception/Error403'), {
-                            title: '我的',
-                            auth: false,
-                        }),
-                    }, {
-                        path: "/exception/error404",
-                        title: "异常404",
-                        element: lazyLoad(() => import(/* error404 */ "../views/Exception/Error404")),
-                    }, {
-                        path: "/exception/error500",
-                        title: "异常500",
-                        element: lazyLoad(() => import(/* error500 */ "../views/Exception/Error500")),
-                    },
-                ],
-            }, 
             {
                 path: "/dashboard",
                 title: "仪表盘",
@@ -97,15 +64,24 @@ const routes: RouterTypes[] = [
                     {
                         path: "/dashboard/analysis",
                         title: "分析页",
-                        element: lazyLoad(() => import(/* home */ "../views/Dashboard/Analysis")),
+                        element: lazyLoad(() => import(/* home */ "../views/Dashboard/Analysis"), {
+                            title: '分析页',
+                            auth: true,
+                        }),
                     }, {
                         path: "/dashboard/monitor",
                         title: "监控页",
-                        element: lazyLoad(() => import(/* home */ "../views/Dashboard/Monitor")),
+                        element: lazyLoad(() => import(/* home */ "../views/Dashboard/Monitor"), {
+                            title: '监控页',
+                            auth: true,
+                        }),
                     }, {
                         path: "/dashboard/workbench",
                         title: "工作台",
-                        element: lazyLoad(() => import(/* home */ "../views/Dashboard/Workbench")),
+                        element: lazyLoad(() => import(/* home */ "../views/Dashboard/Workbench"), {
+                            title: '工作台',
+                            auth: true,
+                        }),
                     },
                 ],
             }
@@ -115,31 +91,18 @@ const routes: RouterTypes[] = [
         path: '/login',
         element: lazyLoad(() => import('@/views/Login'), {
             title: '登录页',
-            auth: false,
         })
     },
     {
         path: '*',
-        element: <Navigate to={'/notfound'} />
+        element: <Navigate to={'/404'} />
     },
     {
-        path: '/notfound',
+        path: '/404',
         element: lazyLoad(() => import('@/views/NotFound/404'))
     },
 ]
 
-const onRouterBefore = ({ pathname, meta }: { pathname: string, meta: metaTypes }) => {
-    // 动态修改页面title
-    if (meta.title !== undefined) {
-        document.title = meta.title
-    }
-    // console.log(pathname, meta, 2222222222);
-    const token = '';
-
-    // 判断未登录跳转登录页
-    if (meta.auth && !token) return '/login';
-}
-
-setRouterBefore(onRouterBefore);
+export const MENUS = routes[0].children?.filter((item: any, idx: number) => idx > 0) || [];
 
 export default routes;

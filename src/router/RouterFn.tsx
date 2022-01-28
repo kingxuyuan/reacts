@@ -2,16 +2,13 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-25 12:43:55
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-25 18:56:30
+ * @LastEditTime: 2022-01-28 16:53:12
  * @Description: 封装工具函数
  */
 
 import { lazy, Suspense } from 'react';
 
 import RouteGuard from './RouteGuard';
-
-// 设置路由导航守卫函数
-let handleRouteBefore: any = null;
 
 /**
  * @description: 路由懒加载
@@ -35,11 +32,3 @@ export const lazyLoad = (importFn: () => any, meta = {} as any) => {
 export function load (element: any, meta = {} as any) {
     return <RouteGuard element={element} meta={meta} />
 }
-
-// 设置
-export const setRouterBefore = (fn: any) => {
-    handleRouteBefore = fn;
-}
-
-// 获取
-export const getRouterBefore = () => handleRouteBefore;

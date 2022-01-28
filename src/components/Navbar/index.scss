@@ -22,9 +22,14 @@
             @include flexItemsCenter();
             &-item {
                 min-width: 60px;
+                padding: 0 4px;
+                flex-shrink: 0;
                 text-align: center;
                 cursor: pointer;
+                border-radius: 2px;
                 border: 1px solid #d8dce5;
+                transition: all .3s;
+                @include flexCenter();
                 &:not(:first-child) {
                     margin-left: 10px;
                 }
@@ -33,13 +38,32 @@
                     border-color: #42b983;
                     background-color: #42b983;
                 }
+                .circle {
+                    width: 8px;
+                    height: 8px;
+                    margin-right: 4px;
+                    border-radius: 50%;
+                    background-color: #fff;
+                }
+                .close {
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 50%;
+                    margin-left: 2px;
+                    font-size: $font-size-8;
+                    transition: all .3s;
+                    &:hover {
+                        color: #fff;
+                        background-color: #b4bccc;
+                    }
+                }
             }
         }
     }
     .anticon {
         width: 36px;
         height: 100%;
-        font-size: 14px;
+        font-size: $font-size-14;
         cursor: pointer;
         @include flexCenter();
     }
