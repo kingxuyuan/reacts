@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-27 15:18:26
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-28 18:53:01
+ * @LastEditTime: 2022-01-29 18:06:32
  * @Description: 
  */
 import { useState } from 'react';
@@ -12,6 +12,7 @@ import routes, { MENUS, RouterTypes } from '@/router/routes';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 import './index.scss';
+import { useEffect } from 'react';
 
 const { SubMenu } = Menu;
 
@@ -55,11 +56,15 @@ const Sider = () => {
         // } else {
         //     setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
         // }
-    }
+    };
 
     const foldClick = () => {
         setFold(!fold);
-    }
+    };
+
+    useEffect(() => {
+        setSelectedKeys([pathname]);
+    }, [pathname]);
 
     return (
         <>
