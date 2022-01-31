@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-27 15:18:26
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-28 18:40:01
+ * @LastEditTime: 2022-01-31 14:58:52
  * @Description: 
  */
 import { useState } from 'react';
@@ -47,7 +47,8 @@ const Header = (props: indexProps) => {
                 <h1>后台管理系统</h1>
             </div>
             <div className="layout-header-right">
-                <div className="breadcrumb">首页</div>
+                <div className="breadcrumb"></div>
+                
                 <div className="info-nav">
                     <div className="info-nav-item search">
                         <div className="search-icon" onClick={showSearchInputFn}>

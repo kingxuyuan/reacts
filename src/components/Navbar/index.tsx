@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-27 15:18:26
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-30 17:12:32
+ * @LastEditTime: 2022-01-31 13:28:34
  * @Description: 
  */
 import { FC, useState, useEffect, memo, MouseEvent } from 'react';
@@ -37,10 +37,9 @@ const routeFn = (arr: RouterTypes[]): any[] => {
 };
 
 const cMenus: contextmenus_types[] = [
-    { id: 1, path: '', title: '刷新' },
-    { id: 2, path: '', title: '关闭' },
-    { id: 3, path: '', title: '关闭其他' },
-    { id: 4, path: '', title: '关闭所有' }
+    { id: 1, path: '', title: '关闭' },
+    { id: 2, path: '', title: '关闭其他' },
+    { id: 3, path: '', title: '关闭所有' }
 ]
 
 const Navbar: FC<indexProps> = (props) => {
@@ -135,12 +134,9 @@ const Navbar: FC<indexProps> = (props) => {
     const contextmenuClick = (item: contextmenus_types) => {
         switch (item.id) {
             case 1:
-                navigate(item.path);
-                break;
-            case 2:
                 deleteRoute(pathname);
                 break;
-            case 3:
+            case 2:
                 navigate(item.path);
                 setNavList(navList.filter(n => (n === '/home' || n === item.path) && n));
                 break;

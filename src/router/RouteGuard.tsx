@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-25 12:53:50
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-30 13:28:51
+ * @LastEditTime: 2022-01-31 13:25:19
  * @Description: 封装路由容器组件
  */
 import { FC } from 'react';
@@ -34,7 +34,7 @@ const RouteGuard: FC<RouteProps> = ({ element, meta }) => {
     if (meta.title !== undefined) document.title = meta.title;
 
     // 判断未登录跳转登录页
-    if (meta.auth && !token) path = `/login?redirct=${pathname}`;
+    if (meta.auth && !token) path = pathname === '/home' ? '/login' : `/login?redirct=${pathname}`;
 
     if (path && path !== pathname) element = <Navigate to={path} />
 
