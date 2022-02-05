@@ -60,9 +60,13 @@
                     border-radius: 50%;
                     margin-right: 6px;
                 }
+                span {
+                    min-width: 50px;
+                }
             }
             .notice {
                 width: 48px;
+                background-color: transparent;
                 @include flexCenter();
                 .ant-badge-count {
                     top: -4px;
@@ -91,6 +95,7 @@
 }
 
 .users {
+    top: 52px !important;
     min-width: 124px !important;
     .ant-dropdown-menu-item {
         padding-left: 20px;
@@ -98,4 +103,8 @@
     .ant-dropdown-menu-item:last-child {
         border-top: 1px solid #f0f0f0;
     }
+}
+.tabs {
+    width: 250px;
+    top: 52px !important;
 }

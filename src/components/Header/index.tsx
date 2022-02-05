@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-27 15:18:26
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-31 14:58:52
+ * @LastEditTime: 2022-02-05 14:29:59
  * @Description: 
  */
 import { useState } from 'react';
@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 import { Menu, Dropdown, Badge, Input } from 'antd';
 import { UserOutlined, SettingOutlined, PoweroffOutlined, BellOutlined, SearchOutlined } from '@ant-design/icons';
 import { clearToken } from '@/store/config/configReducer';
+
+import Notice from '../Notice';
 
 import './index.scss';
 import avatar from '@/assets/images/avatar.png';
@@ -34,11 +36,11 @@ const Header = (props: indexProps) => {
     };
 
     const handleClick = ({ key }: any) => {
-        if(menus[key].id === 2) {
+        if (menus[key].id === 2) {
             dispatch(clearToken());
         }
         else menus[key].path && navigate(menus[key].path, { replace: true });
-    }
+    };
 
     return (
         <div className="layout-header">
@@ -48,7 +50,7 @@ const Header = (props: indexProps) => {
             </div>
             <div className="layout-header-right">
                 <div className="breadcrumb"></div>
-                
+
                 <div className="info-nav">
                     <div className="info-nav-item search">
                         <div className="search-icon" onClick={showSearchInputFn}>
@@ -59,9 +61,16 @@ const Header = (props: indexProps) => {
                         </div>
                     </div>
                     <div className="info-nav-item notice">
-                        <Badge count={999}>
-                            <BellOutlined style={{ color: '#fff' }} />
-                        </Badge>
+                        <Dropdown
+                            overlay={<Notice />}
+                            trigger={['click']}
+                            placement="bottomRight"
+                            overlayClassName="tabs"
+                        >
+                            <Badge count={999}>
+                                <BellOutlined style={{ color: '#fff' }} />
+                            </Badge>
+                        </Dropdown>
                     </div>
                     <div className="info-nav-item user-info">
                         <Dropdown
@@ -75,7 +84,8 @@ const Header = (props: indexProps) => {
                                 </Menu>
                             }
                             overlayClassName="users"
-                            placement="bottomCenter">
+                            placement="bottomCenter"
+                        >
                             <div className='avatar'>
                                 <img src={avatar} alt="" />
                                 <span>Admin</span>

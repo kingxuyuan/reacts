@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-27 15:18:26
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-31 13:28:34
+ * @LastEditTime: 2022-02-05 15:12:16
  * @Description: 
  */
 import { FC, useState, useEffect, memo, MouseEvent } from 'react';
@@ -134,7 +134,7 @@ const Navbar: FC<indexProps> = (props) => {
     const contextmenuClick = (item: contextmenus_types) => {
         switch (item.id) {
             case 1:
-                deleteRoute(pathname);
+                deleteRoute(item.path);
                 break;
             case 2:
                 navigate(item.path);
@@ -197,7 +197,7 @@ const Navbar: FC<indexProps> = (props) => {
 
     return (
         <div className="layout-navbar">
-            <LeftOutlined onClick={() => changeTabs('prev')} />
+            {/* <LeftOutlined onClick={() => changeTabs('prev')} /> */}
             <div className="layout-navbar-view">
                 <div className="tab" style={{ width: tabWidth + 'px', transform: `translateX(-${left}px)` }}>
                     {
@@ -231,7 +231,7 @@ const Navbar: FC<indexProps> = (props) => {
                 </div>
             }
 
-            <RightOutlined onClick={() => changeTabs('next')} />
+            {/* <RightOutlined onClick={() => changeTabs('next')} /> */}
         </div>
     );
 }

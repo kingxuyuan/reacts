@@ -17,19 +17,20 @@ import { fetchConfigRequest } from '@/store/config/configActions';
 // import { fetchConfigRequest } from '@/saga/config/actions';
 
 import routes from '@/router/routes';
+import WithAntdConfig from '@/components/HOC/WithAntConfig';
 import WithReduxProvider from '@/components/HOC/WithReduxProvider';
 
-interface AppProps {}
+interface AppProps { }
 
 const MainRoute = () => useRoutes(routes);
 
 const MainRouter = () => {
     const dispath = useDispatch();
-    
+
     const successFn = () => {
         console.log('获取数据成功！');
     }
-    
+
     useEffect(() => {
         dispath(fetchConfigRequest(successFn))
         // batch(() => {
@@ -37,7 +38,7 @@ const MainRouter = () => {
         //     dispatch(increment());
         // })
     }, [])
-    
+
     return (
         <BrowserRouter>
             <MainRoute />
@@ -45,7 +46,7 @@ const MainRouter = () => {
     )
 }
 
-const renderCom: (C: ComponentType) => ComponentType = compose(WithReduxProvider(store));
+const renderCom: (C: ComponentType) => ComponentType = compose(WithReduxProvider(store), WithAntdConfig);
 
 const MainComponent = renderCom(memo(MainRouter));
 

@@ -1,0 +1,60 @@
+// 用户列表
+.userlist {
+    width: 100%;
+    min-height: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #fff;
+    &-head {
+        margin-top: 14px;
+        margin-bottom: 28px;
+        @include flexItemsCenter();
+        .ant-form {
+            @include flexItemsCenter();
+            &-item {
+                margin-bottom: 0;
+                &:not(:first-child) {
+                    margin-left: 20px;
+                }
+            }
+            .ant-input,
+            .ant-picker,
+            .ant-select-selector,
+            .ant-select-selection-item {
+                height: 26px;
+            }
+            .ant-select-selection-item {
+                line-height: 26px;
+            }
+            .ant-btn {
+                margin-left: 10px;
+            }
+        }
+        .delete {
+            height: 100%;
+            white-space: nowrap;
+            word-break: keep-all;
+            overflow: hidden;
+            transition: width .5s;
+            span {
+                margin-right: 4px;
+            }
+        }
+    }
+    &-table {
+        .ant-table-cell {
+            padding: 13px;
+        }
+        .ant-table-pagination.ant-pagination {
+            margin-bottom: 4px;
+        }
+        .ant-pagination-item,
+        .ant-pagination-prev, 
+        .ant-pagination-next {
+            min-width: 25px;
+            height: 25px;
+            line-height: 23px;
+        }
+    }
+}

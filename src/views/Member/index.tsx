@@ -1,21 +1,21 @@
 /*
  * @Author: 大侠传授两招吧
- * @Date: 2022-01-27 16:10:18
+ * @Date: 2022-02-05 15:21:18
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-05 15:20:49
+ * @LastEditTime: 2022-02-05 16:01:40
  * @Description: 
  */
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
-interface indexProps {}
+interface indexProps { }
 
-const Dashboard: FC<indexProps> = (props) => {
+const Member: FC<indexProps> = (props) => {
     return (
-        <div className="dashboard">
+        <div className="member">
             <Outlet />
         </div>
     );
 }
 
-export default Dashboard;
+export default Member;

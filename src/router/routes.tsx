@@ -2,12 +2,12 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 14:34:16
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-31 11:39:58
+ * @LastEditTime: 2022-02-05 16:08:09
  * @Description: 
  */
 import { Navigate } from 'react-router-dom';
 import { lazyLoad } from './RouterFn';
-import { AppstoreOutlined, MailOutlined, SettingOutlined, FileImageOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, MailOutlined, SettingOutlined, TeamOutlined } from '@ant-design/icons';
 
 interface routeTypes {
     path: string
@@ -64,26 +64,41 @@ const routes: RouterTypes[] = [
                     {
                         path: "/dashboard/analysis",
                         title: "分析页",
-                        element: lazyLoad(() => import(/* home */ "../views/Dashboard/Analysis"), {
+                        element: lazyLoad(() => import(/* analysis */ "@/views/Dashboard/Analysis"), {
                             title: '分析页',
                             auth: true,
                         }),
                     }, {
                         path: "/dashboard/monitor",
                         title: "监控页",
-                        element: lazyLoad(() => import(/* home */ "../views/Dashboard/Monitor"), {
+                        element: lazyLoad(() => import(/* monitor */ "@/views/Dashboard/Monitor"), {
                             title: '监控页',
                             auth: true,
                         }),
                     }, {
                         path: "/dashboard/workbench",
                         title: "工作台",
-                        element: lazyLoad(() => import(/* home */ "../views/Dashboard/Workbench"), {
+                        element: lazyLoad(() => import(/* workbench */ "@/views/Dashboard/Workbench"), {
                             title: '工作台',
                             auth: true,
                         }),
                     },
                 ],
+            },
+            {
+                path: '/member',
+                title: '用户管理',
+                icon: <TeamOutlined />,
+                children: [
+                    {
+                        path: '/member/userlist',
+                        title: "用户列表",
+                        element: lazyLoad(() => import(/* userlist */ '@/views/Member/UserList'), {
+                            title: '用户列表',
+                            auth: true,
+                        })
+                    }
+                ]
             }
         ]
     },

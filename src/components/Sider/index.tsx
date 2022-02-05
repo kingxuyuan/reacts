@@ -2,13 +2,13 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-27 15:18:26
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-29 18:06:32
+ * @LastEditTime: 2022-02-05 16:10:21
  * @Description: 
  */
 import { useState } from 'react';
 import { Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
-import routes, { MENUS, RouterTypes } from '@/router/routes';
+import { MENUS, RouterTypes } from '@/router/routes';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 import './index.scss';
@@ -21,11 +21,9 @@ const renderMenu = (menu: any) => {
     return menu.map((item: RouterTypes) => {
 
         if (item.children) {
-            const subMenus = item?.children?.filter((item: any, idx: number) => idx > 0);
-
             return (
                 <SubMenu key={item.path} title={item?.title} icon={item?.icon}>
-                    {renderMenu(subMenus)}
+                    {renderMenu(item?.children)}
                 </SubMenu>
             )
         }

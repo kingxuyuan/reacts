@@ -1,3 +1,19 @@
 .login {
-    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center 150px;
+    background-image: url('https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg');
+    &-container {
+        width: 260px;
+        margin: 20vh auto;
+        h3 {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .ant-form-item-explain-error {
+            font-size: $font-size-12;
+        }
+    }
 }
