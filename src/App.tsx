@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 13:01:43
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-28 17:22:35
+ * @LastEditTime: 2022-02-09 19:01:10
  * @Description: 
  */
 import { ComponentType, FC, memo, useEffect } from 'react';
@@ -19,6 +19,9 @@ import { fetchConfigRequest } from '@/store/config/configActions';
 import routes from '@/router/routes';
 import WithAntdConfig from '@/components/HOC/WithAntConfig';
 import WithReduxProvider from '@/components/HOC/WithReduxProvider';
+
+console.log(process.env);
+
 
 interface AppProps { }
 

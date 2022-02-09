@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 15:05:25
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-05 18:53:06
+ * @LastEditTime: 2022-02-08 18:24:39
  * @Description: 
  */
 import { useState } from 'react';
@@ -80,6 +80,30 @@ const Login = (props: indexProps) => {
                     </Form.Item>
                 </Form>
             </div>
+            
+            <div className="cloud"></div>
+            <div className="cloud2"></div>
+            
+            <div className="bamboo bamboo_one"></div>
+            <div className="bamboo bamboo_two"></div>
+            <div className="bamboo bamboo_three"></div>
+
+            <div className="bottom"></div>
+
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
+            <div className="snow"></div>
         </div>
     );
 }

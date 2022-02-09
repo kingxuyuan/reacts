@@ -3,7 +3,8 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"start": "craco start",
+		"start": "dotenv -e .env.dev craco start",
+		"start:test": "dotenv -e .env.test craco start",
 		"build": "craco build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
@@ -26,6 +27,7 @@
 		"antd": "^4.18.5",
 		"axios": "^0.25.0",
 		"classnames": "^2.3.1",
+		"dotenv-cli": "^5.0.0",
 		"nprogress": "^0.2.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
@@ -40,7 +42,6 @@
 	},
 	"devDependencies": {
 		"babel-plugin-import": "^1.13.3",
-		"dotenv-cli": "^4.1.1",
 		"postcss-px-to-viewport": "^1.1.1",
 		"sass": "^1.49.0",
 		"webpackbar": "^5.0.2"
