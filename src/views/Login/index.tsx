@@ -2,10 +2,10 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 15:05:25
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-08 18:24:39
+ * @LastEditTime: 2022-02-11 18:43:52
  * @Description: 
  */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Button, Input, Form, message } from 'antd';
@@ -15,7 +15,7 @@ import { setToken } from '@/store/config/configReducer';
 
 import './index.scss';
 
-interface indexProps { }
+interface indexProps { };
 
 const Login = (props: indexProps) => {
     const [httpSataus, setHttpStatus] = useState(false);
@@ -44,6 +44,10 @@ const Login = (props: indexProps) => {
         if (value && !(value?.length <= 20 && value?.length >= 4)) return Promise.reject('密码长度位4-20位！');
         return Promise.resolve()
     };
+
+    useEffect(() => {
+        (window as any).startSakura();
+    }, [])
 
     return (
         <div className="login">
