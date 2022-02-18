@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-27 15:18:26
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-05 16:10:21
+ * @LastEditTime: 2022-02-17 12:49:18
  * @Description: 
  */
 import { useState } from 'react';
@@ -22,15 +22,15 @@ const renderMenu = (menu: any) => {
 
         if (item.children) {
             return (
-                <SubMenu key={item.path} title={item?.title} icon={item?.icon}>
+                <SubMenu key={item.path} title={item?.label} icon={item?.icon}>
                     {renderMenu(item?.children)}
                 </SubMenu>
             )
         }
 
         return (
-            <Menu.Item key={item.path} title={item?.title} icon={item?.icon}>
-                <Link to={item.path}>{item?.title}</Link>
+            <Menu.Item key={item.path} title={item?.label} icon={item?.icon}>
+                <Link to={item.path}>{item?.label}</Link>
             </Menu.Item>
         )
     })

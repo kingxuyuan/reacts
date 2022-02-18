@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 14:34:16
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-05 16:08:09
+ * @LastEditTime: 2022-02-17 12:48:31
  * @Description: 
  */
 import { Navigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ interface routeTypes {
     path: string
     element?: any
     icon?: any
-    title?: string
+    label?: string
     children?: routeTypes[]
 }
 
@@ -40,7 +40,7 @@ const routes: RouterTypes[] = [
             },
             {
                 path: '/home',
-                title: '首页',
+                label: '首页',
                 icon: <MailOutlined />,
                 element: lazyLoad(() => import('@/views/Home'), {
                     title: '首页',
@@ -49,7 +49,7 @@ const routes: RouterTypes[] = [
             },
             {
                 path: '/mine',
-                title: '我的',
+                label: '我的',
                 icon: <AppstoreOutlined />,
                 element: lazyLoad(() => import('@/views/Mine'), {
                     title: '我的',
@@ -58,26 +58,26 @@ const routes: RouterTypes[] = [
             },
             {
                 path: "/dashboard",
-                title: "仪表盘",
+                label: "仪表盘",
                 icon: <SettingOutlined />,
                 children: [
                     {
                         path: "/dashboard/analysis",
-                        title: "分析页",
+                        label: "分析页",
                         element: lazyLoad(() => import(/* analysis */ "@/views/Dashboard/Analysis"), {
                             title: '分析页',
                             auth: true,
                         }),
                     }, {
                         path: "/dashboard/monitor",
-                        title: "监控页",
+                        label: "监控页",
                         element: lazyLoad(() => import(/* monitor */ "@/views/Dashboard/Monitor"), {
                             title: '监控页',
                             auth: true,
                         }),
                     }, {
                         path: "/dashboard/workbench",
-                        title: "工作台",
+                        label: "工作台",
                         element: lazyLoad(() => import(/* workbench */ "@/views/Dashboard/Workbench"), {
                             title: '工作台',
                             auth: true,
@@ -87,12 +87,12 @@ const routes: RouterTypes[] = [
             },
             {
                 path: '/member',
-                title: '用户管理',
+                label: '用户管理',
                 icon: <TeamOutlined />,
                 children: [
                     {
                         path: '/member/userlist',
-                        title: "用户列表",
+                        label: "用户列表",
                         element: lazyLoad(() => import(/* userlist */ '@/views/Member/UserList'), {
                             title: '用户列表',
                             auth: true,

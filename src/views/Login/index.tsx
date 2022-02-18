@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 15:05:25
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-11 18:43:52
+ * @LastEditTime: 2022-02-17 15:15:12
  * @Description: 
  */
 import { useState, useEffect } from 'react';
@@ -10,6 +10,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Button, Input, Form, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import classnames from 'classnames';
 
 import { setToken } from '@/store/config/configReducer';
 
@@ -84,13 +85,9 @@ const Login = (props: indexProps) => {
                     </Form.Item>
                 </Form>
             </div>
-            
+
             <div className="cloud"></div>
             <div className="cloud2"></div>
-            
-            <div className="bamboo bamboo_one"></div>
-            <div className="bamboo bamboo_two"></div>
-            <div className="bamboo bamboo_three"></div>
 
             <div className="bottom"></div>
 
