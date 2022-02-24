@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 13:03:39
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-09 19:15:29
+ * @LastEditTime: 2022-02-24 14:51:37
  * @Description:minix
  */
 const path = require('path');
@@ -31,7 +31,7 @@ module.exports = {
         host: NetworkIp(),
         proxy: {
             '/api': {
-                target: 'http://stock-test.cciamc.com',
+                target: process.env.REACT_APP_URL,
                 changeOrigin: true,
             }
         },
