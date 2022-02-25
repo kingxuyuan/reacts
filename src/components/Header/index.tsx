@@ -2,15 +2,15 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-27 15:18:26
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-05 14:29:59
+ * @LastEditTime: 2022-02-25 13:50:50
  * @Description: 
  */
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Menu, Dropdown, Badge, Input } from 'antd';
 import { UserOutlined, SettingOutlined, PoweroffOutlined, BellOutlined, SearchOutlined } from '@ant-design/icons';
-import { clearToken } from '@/store/config/configReducer';
+import { clearToken, getInitialState } from '@/store/user/userReducer';
 
 import Notice from '../Notice';
 
@@ -28,6 +28,7 @@ const menus = [
 const Header = (props: indexProps) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { userInfo } = useSelector(getInitialState);
 
     const [showSearchInput, setShowSearchInput] = useState(false);
 
@@ -88,7 +89,7 @@ const Header = (props: indexProps) => {
                         >
                             <div className='avatar'>
                                 <img src={avatar} alt="" />
-                                <span>Admin</span>
+                                <span>{userInfo.name}</span>
                             </div>
                         </Dropdown>
                     </div>

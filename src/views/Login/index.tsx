@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 15:05:25
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-17 15:15:12
+ * @LastEditTime: 2022-02-25 13:54:38
  * @Description: 
  */
 import { useState, useEffect } from 'react';
@@ -10,9 +10,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Button, Input, Form, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import classnames from 'classnames';
 
-import { setToken } from '@/store/config/configReducer';
+import { setToken, setUserInfo } from '@/store/user/userReducer';
 
 import './index.scss';
 
@@ -32,7 +31,8 @@ const Login = (props: indexProps) => {
         setTimeout(() => {
             setHttpStatus(false);
             message.success('登录成功！');
-            dispath(setToken('sadsadsadsadds'));
+            dispath(setToken(Math.random().toString(36).slice(-8)));
+            dispath(setUserInfo({ name: values.username }));
             navigate(redirctPath ? redirctPath : '/home', { replace: true });
         }, 1500);
     };
@@ -47,7 +47,7 @@ const Login = (props: indexProps) => {
     };
 
     useEffect(() => {
-        (window as any).startSakura();
+        (window as any)?.startSakura();
     }, [])
 
     return (

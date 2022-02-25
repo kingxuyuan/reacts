@@ -2,11 +2,12 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-02-05 15:59:00
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-05 19:49:02
+ * @LastEditTime: 2022-02-25 13:17:59
  * @Description: 
  */
 import { useRef, useState } from 'react';
 import { Form, Input, Button, Select, DatePicker, Table } from 'antd';
+import WithWatermark from '@/components/WithWatermark';
 
 import './index.scss';
 
@@ -97,6 +98,8 @@ const UserList = (props: UserListProps) => {
 
     return (
         <div className="userlist">
+            <WithWatermark />
+            
             <div className="userlist-head">
                 <div className="delete" style={{ width: `${selectRows.length > 0 ? 140 : 0}px` }}>
                     <span>已选择{selectRows.length}项</span>

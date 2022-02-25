@@ -2,14 +2,14 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-25 12:53:50
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-31 13:25:19
+ * @LastEditTime: 2022-02-25 13:40:21
  * @Description: 封装路由容器组件
  */
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
-import { getToken } from '@/store/config/configReducer';
+import { getToken } from '@/store/user/userReducer';
 
 interface MetaTypes {
     title?: string
