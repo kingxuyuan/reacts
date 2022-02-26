@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 15:05:25
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-25 13:54:38
+ * @LastEditTime: 2022-02-26 19:58:25
  * @Description: 
  */
 import { useState, useEffect } from 'react';
@@ -12,6 +12,7 @@ import { Button, Input, Form, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 import { setToken, setUserInfo } from '@/store/user/userReducer';
+import { loginAction } from '@/store/user/userActions';
 
 import './index.scss';
 
@@ -28,18 +29,27 @@ const Login = (props: indexProps) => {
         console.log('Success:', values);
         setHttpStatus(true);
 
-        setTimeout(() => {
-            setHttpStatus(false);
-            message.success('登录成功！');
-            dispath(setToken(Math.random().toString(36).slice(-8)));
-            dispath(setUserInfo({ name: values.username }));
-            navigate(redirctPath ? redirctPath : '/home', { replace: true });
-        }, 1500);
+        dispath(loginAction(values)).then(res => {
+            console.log(res);
+            
+        });
+
+        // setTimeout(() => {
+        //     setHttpStatus(false);
+        //     message.success('登录成功！');
+        //     dispath(setToken(Math.random().toString(36).slice(-8)));
+        //     dispath(setUserInfo({ name: values.account }));
+        //     navigate(redirctPath ? redirctPath : '/home', { replace: true });
+        // }, 1500);
     };
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
+
+    const loginSuccess = () => {
+
+    }
 
     const validatePassword = (rule: any, value: any) => {
         if (value && !(value?.length <= 20 && value?.length >= 4)) return Promise.reject('密码长度位4-20位！');
@@ -61,7 +71,7 @@ const Login = (props: indexProps) => {
                     autoComplete="off"
                 >
                     <Form.Item
-                        name='username'
+                        name='account'
                         rules={[
                             { required: true, message: '请输入用户名' },
                             { pattern: new RegExp(/^[a-zA-Z0-9]{4,16}$/, "g"), message: '数字、字母组合4-16位，不含特殊字符' }

@@ -2,12 +2,13 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-02-25 13:20:53
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-25 13:42:46
+ * @LastEditTime: 2022-02-26 19:58:02
  * @Description: 
  */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../index';
 import sessionCache from '@/utils/sessionCache';
+import { loginAction } from './userActions';
 
 interface userInfoTypes {
     name: string
@@ -39,7 +40,12 @@ const userSlice = createSlice({
             state.userInfo = action.payload;
             sessionCache.sessionSet('userInfo', action.payload);
         }
-    }
+    },
+    // extraReducers: (builder) => {
+    //     builder.addCase(loginAction.fulfilled, (state, action: PayloadAction<any>) => {
+    //         console.log(action, 33333333333);
+    //     });
+    // }
 })
 
 export const { setUserInfo } = userSlice.actions;
