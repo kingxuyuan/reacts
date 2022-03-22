@@ -2,12 +2,13 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 8;
     width: $sider-width;
     height: 100%;
     padding-top: $header-height;
     box-sizing: border-box;
-    transition: width 0.3s cubic-bezier(0.2, 0, 0, 1);
     background-color: #fff;
+    transition: width 0.3s cubic-bezier(0.2, 0, 0, 1);
     box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
     &-wrap {
         width: 100%;

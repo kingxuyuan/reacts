@@ -33,10 +33,10 @@ const Notice: FC<indexProps> = (props) => {
             </Tabs>
 
             <div className="notice-btns">
-                <div>
+                {/* <div>
                     清空
                     <span>{parseInt(active) === 1 ? 'card1' : '充值'}</span>
-                </div>
+                </div> */}
                 <div>查看更多</div>
             </div>
         </div>

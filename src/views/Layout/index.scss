@@ -1,6 +1,5 @@
 .layout {
     width: 100%;
-    min-width: 1000px;
     min-height: 100vh;
     display: flex;
 }
@@ -8,8 +7,8 @@
 .layout-content {
     flex: 1;
     min-height: 100vh;
-    background-color: #f0f2f5;
     overflow-x: hidden;
+    background-color: #f0f2f5;
     transition: width 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 
@@ -18,11 +17,22 @@
     height: $header-height;
 }
 
+.layout-navbar-blank {
+    width: 100%;
+    height: $navbar-height;
+}
+
 .layout-main {
     width: 100%;
     min-height: calc(100vh - $header-height - $navbar-height - $footer-height);
     padding: 10px 10px 0 10px;
     box-sizing: border-box;
+    &-box {
+        padding: 0 12px;
+        border-radius: 6px;
+        box-sizing: border-box;
+        background-color: $color-white;
+    }
 }
 
 .layout-footer {

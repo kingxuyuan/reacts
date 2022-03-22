@@ -1,0 +1,120 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+.layout h1 {
+    margin: 0;
+}
+
+// 列表头部搜索表单的按钮
+.table-form-btns {
+    .btn {
+        margin-right: 16px;
+        opacity: .8;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &:last-child {
+            background-color: #f4f4f4;
+        }
+    }
+
+    .add,
+    .add:focus,
+    .add:hover,
+    .add:active {
+        color: $color-white;
+        border-color: #00a65a;
+        background-color: #00a65a;
+    }
+
+    .search,
+    .search:focus,
+    .search:hover,
+    .search:active {
+        color: $color-white;
+        border-color: #00acd6;
+        background-color: #00acd6;
+    }
+}
+
+// 新增、编辑表单的按钮
+.layout-main-box {
+    .formbtn {
+        margin-top: 24px;
+        padding-left: 24px;
+        padding-right: 24px;
+        border-radius: 4px;
+
+        &:last-child {
+            margin-left: 24px;
+        }
+    }
+
+    .ant-input-prefix {
+        margin-right: 8px;
+    }
+    .ant-form-inline .ant-form-item {
+        margin-bottom: 6px;
+    }
+}
+
+// 列表头部
+.table-title {
+    @include flexCenterBetween();
+}
+
+// 新增、编辑表单样式
+.addedit-form {
+    padding: 20px;
+    box-sizing: border-box;
+    h1 {
+        margin-top: 10px;
+        margin-bottom: 30px;
+        padding-left: 6px;
+        box-sizing: border-box;
+        font-size: $font-size-22;
+        @include flexItemsCenter();
+
+        &::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 22px;
+            margin-right: 14px;
+            border-radius: 2px;
+            background-color: #00c0ef;
+        }
+    }
+
+    // 开关样式
+    .ant-switch {
+        height: 26px;
+        line-height: 26px;
+        min-width: 76px;
+    }
+
+    .ant-switch-handle {
+        top: 4px;
+        left: 6px;
+    }
+
+    .ant-switch-checked .ant-switch-handle {
+        left: calc(100% - 24px);
+    }
+}

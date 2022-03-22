@@ -6,15 +6,15 @@
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url('https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg');
+    background-image: url('~@/assets/images/1.svg');
     background: linear-gradient(to bottom, #c6dde4, #fefeff);
 
     &-container {
         width: 260px;
         margin: 28vh auto;
 
-        h3 {
-            margin-bottom: 40px;
+        h2 {
+            margin-bottom: 60px;
             color: #749929;
             text-align: center;
             font-weight: bold;
@@ -42,7 +42,7 @@
         height: 40px;
         background-size: cover;
         background-position: -120px 0;
-        background-image: url('https://tinify.cn/images/grass-confetti.png');
+        background-image: url('~@/assets/images/grass-confetti.png');
     }
 
     .cloud {
@@ -52,7 +52,7 @@
         width: 500px;
         height: 200px;
         background-size: cover;
-        background-image: url('https://tinify.cn/images/jpg/cloud-left.png');
+        background-image: url('~@/assets/images/cloud-left.png');
         animation: move 25s linear infinite;
     }
 
@@ -63,8 +63,49 @@
         width: 700px;
         height: 250px;
         background-size: cover;
-        background-image: url('https://tinify.cn/images/jpg/cloud-right.png');
+        background-image: url('~@/assets/images/cloud-right.png');
         animation: move1 25s linear infinite;
+    }
+    .flower {
+        position: fixed;
+        bottom: 0px;
+        background-repeat: no-repeat;
+        transform-origin: center bottom;
+        background-image: url('../../assets/images/flower.png');
+        animation: 3s linear 1s infinite normal none running ball-x;
+    }
+    .flower-small {
+        width: 36px;
+        height: 60px;
+        left: 21px;
+        border: 0px solid red;
+        background-position: 0px -90px;
+    }
+    .flower-big {
+        width: 64px;
+        height: 115px;
+        left: 47px;
+        background-position: -86px -36px;
+    }
+}
+@keyframes ball-x { 
+    0% {
+        transform: rotate(0deg);
+    }
+    20% {
+        transform: rotate(5deg);
+    }
+    40% {
+        transform: rotate(0deg);
+    }
+    60% {
+        transform: rotate(-5deg);
+    }
+    80% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(0deg);
     }
 }
 

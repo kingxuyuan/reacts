@@ -3,12 +3,12 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-02-25 12:27:07
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-25 13:56:33
+ * @LastEditTime: 2022-03-17 13:45:04
  * @Description: 
  */
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { getInitialState } from '@/store/user/userReducer';
+import { getInitialState } from '@/store/user/userInfo/userInfoReducer';
 
 import './index.scss';
 

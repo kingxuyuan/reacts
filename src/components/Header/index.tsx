@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-27 15:18:26
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-25 13:50:50
+ * @LastEditTime: 2022-03-22 15:22:15
  * @Description: 
  */
 import { useState } from 'react';
@@ -10,7 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Menu, Dropdown, Badge, Input } from 'antd';
 import { UserOutlined, SettingOutlined, PoweroffOutlined, BellOutlined, SearchOutlined } from '@ant-design/icons';
-import { clearToken, getInitialState } from '@/store/user/userReducer';
+import { clearToken } from '@/store/user/login/loginReducer';
+import { getUserInfo } from '@/store/user/userInfo/userInfoReducer';
+import { SYSTEM } from '@/utils/base';
 
 import Notice from '../Notice';
 
@@ -28,7 +30,7 @@ const menus = [
 const Header = (props: indexProps) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { userInfo } = useSelector(getInitialState);
+    const userInfo = useSelector(getUserInfo);
 
     const [showSearchInput, setShowSearchInput] = useState(false);
 
@@ -47,7 +49,7 @@ const Header = (props: indexProps) => {
         <div className="layout-header">
             <div className="layout-header-left">
                 <img src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg" alt="" />
-                <h1>后台管理系统</h1>
+                <h1>{ SYSTEM.title }</h1>
             </div>
             <div className="layout-header-right">
                 <div className="breadcrumb"></div>

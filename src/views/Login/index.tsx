@@ -2,25 +2,26 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 15:05:25
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-26 19:58:25
- * @Description: 
+ * @LastEditTime: 2022-03-22 15:23:58
+ * @Description: 登录
  */
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '@/store';
 import { Button, Input, Form, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
-import { setToken, setUserInfo } from '@/store/user/userReducer';
-import { loginAction } from '@/store/user/userActions';
+import { SYSTEM } from '@/utils/base';
+import { setToken } from '@/store/user/login/loginReducer';
+import { setUserInfo } from '@/store/user/userInfo/userInfoReducer';
+import { loginAction } from '@/store/user/login/loginAction';
+import '@/assets/js/sakura';
 
 import './index.scss';
 
-interface indexProps { };
-
-const Login = (props: indexProps) => {
+const Login = () => {
     const [httpSataus, setHttpStatus] = useState(false);
-    const dispath = useDispatch();
+    const dispath = useAppDispatch();
     const navigate = useNavigate();
     const { search } = useLocation();
     const redirctPath = search?.split('=')[1];
@@ -29,27 +30,21 @@ const Login = (props: indexProps) => {
         console.log('Success:', values);
         setHttpStatus(true);
 
-        dispath(loginAction(values)).then(res => {
-            console.log(res);
-            
-        });
-
-        // setTimeout(() => {
-        //     setHttpStatus(false);
-        //     message.success('登录成功！');
-        //     dispath(setToken(Math.random().toString(36).slice(-8)));
-        //     dispath(setUserInfo({ name: values.account }));
-        //     navigate(redirctPath ? redirctPath : '/home', { replace: true });
-        // }, 1500);
+        dispath(loginAction(values))
+        .then(res => {
+            setHttpStatus(false);
+            message.success('登录成功！');
+            dispath(setToken(Math.random().toString(36).slice(-8)));
+            dispath(setUserInfo({ name: values.account }));
+            navigate(redirctPath ? redirctPath : '/home', { replace: true });
+        }).catch(err=> {
+            setHttpStatus(false);
+        })
     };
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
-
-    const loginSuccess = () => {
-
-    }
 
     const validatePassword = (rule: any, value: any) => {
         if (value && !(value?.length <= 20 && value?.length >= 4)) return Promise.reject('密码长度位4-20位！');
@@ -63,7 +58,7 @@ const Login = (props: indexProps) => {
     return (
         <div className="login">
             <div className="login-container">
-                <h3>用户登录</h3>
+                <h2>{ SYSTEM.title }</h2>
                 <Form
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
@@ -100,6 +95,8 @@ const Login = (props: indexProps) => {
             <div className="cloud2"></div>
 
             <div className="bottom"></div>
+            <div className="flower flower-small"></div>
+            <div className="flower flower-big"></div>
 
             <div className="snow"></div>
             <div className="snow"></div>

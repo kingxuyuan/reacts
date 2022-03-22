@@ -2,14 +2,31 @@
  * @Author: 大侠传授两招吧
  * @Date: 2021-11-22 10:21:21
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2021-12-24 13:23:36
+ * @LastEditTime: 2022-03-22 13:25:56
  * @Description: 工具
  */
+export const menuWidth = (fold: boolean) => fold ? 50 : 208;
+
+/**
+ * @description: 图片转换base64
+ * @param {any} file
+ * @return {*}  Promise
+ * @author: 大侠传授两招吧
+ */
+export const changeBase64 = (file: any) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+};
+
 /**
  * @description: 友盟统计
  * @author: 大侠传授两招吧
  */
- export const statisticsFn = () => {
+export const statisticsFn = () => {
     let el = document.createElement('script');
     el.type = 'text/javascript';
     el.charset = 'utf-8';

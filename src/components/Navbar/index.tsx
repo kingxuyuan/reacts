@@ -2,14 +2,18 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-27 15:18:26
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-02-17 12:49:31
+ * @LastEditTime: 2022-03-22 13:38:10
  * @Description: 
  */
 import { FC, useState, useEffect, memo, MouseEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LeftOutlined, RightOutlined, CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined } from '@ant-design/icons';
 import classnames from 'classnames';
+import { useSelector } from 'react-redux';
+
+import { menuWidth } from '@/utils/tools';
 import { MENUS, RouterTypes } from '@/router/routes';
+import { getMenuFold } from '@/store/config/configReducer';
 
 import './index.scss';
 
@@ -28,9 +32,11 @@ const routeFn = (arr: RouterTypes[]): any[] => {
             if (item.children) {
                 return routeFn(item.children);
             }
+
             return {
                 path: item.path,
-                title: item.label
+                title: item.label,
+                noMenu: item.noMenu || false
             };
         })
         .flat(Infinity);
@@ -44,6 +50,8 @@ const cMenus: contextmenus_types[] = [
 
 const Navbar: FC<indexProps> = (props) => {
     const navigate = useNavigate();
+    const menuFold = useSelector(getMenuFold);
+
     const { pathname } = useLocation();
     const rootRoute = routeFn(MENUS);
 
@@ -66,19 +74,19 @@ const Navbar: FC<indexProps> = (props) => {
     };
 
     // 导航切换
-    const changeTabs = (key: string) => {
-        let path = '';
-        const idx = navList.indexOf(currentTab);
+    // const changeTabs = (key: string) => {
+    //     let path = '';
+    //     const idx = navList.indexOf(currentTab);
 
-        if (key === 'prev') {
-            if (idx <= 0) path = '/home';
-            else path = navList[idx - 1];
-        } else {
-            if (!navList[idx + 1]) path = navList[navList.length - 1];
-            else path = navList[idx + 1];
-        }
-        navigate(path);
-    };
+    //     if (key === 'prev') {
+    //         if (idx <= 0) path = '/home';
+    //         else path = navList[idx - 1];
+    //     } else {
+    //         if (!navList[idx + 1]) path = navList[navList.length - 1];
+    //         else path = navList[idx + 1];
+    //     }
+    //     navigate(path);
+    // };
 
     // 导航的宽度
     const sumWidthFn = (list: any[]): number => {
@@ -99,9 +107,9 @@ const Navbar: FC<indexProps> = (props) => {
     const deleteRoute = (path: string) => {
         const idx = navList.indexOf(path);
 
-        if (path === currentTab) {
+        if (path === pathname) {
             let path = '';
-            if(!navList[idx + 1]) path = navList[idx - 1];
+            if (!navList[idx + 1]) path = navList[idx - 1];
             else path = navList[idx + 1];
             navigate(path);
         };
@@ -111,25 +119,25 @@ const Navbar: FC<indexProps> = (props) => {
     // 导航鼠标右键事件
     const tabContentextMenu = (path: string, idx: number, e: MouseEvent) => {
         e && e.preventDefault();
-        if(idx === 0) return;
+        if (idx === 0) return;
         setContextmenu(true);
 
         const newMenus = contextmenus.map(item => {
             item.path = path;
-            return { ...item}
+            return { ...item }
         });
         setContextmenus(newMenus);
 
         let left = 0;
         if (window.innerWidth - e.clientX < contextMenu.width) left = e.clientX - contextMenu.width / 3 * 2;
         else left = e.clientX - contextMenu.width / 2;
-        
+
         setContextMenu({
             ...contextMenu,
             left
         });
     };
- 
+
     // 导航 子菜单点击事件
     const contextmenuClick = (item: contextmenus_types) => {
         switch (item.id) {
@@ -138,7 +146,9 @@ const Navbar: FC<indexProps> = (props) => {
                 break;
             case 2:
                 navigate(item.path);
-                setNavList(navList.filter(n => (n === '/home' || n === item.path) && n));
+
+                setNavList(['/home', item.path]);
+                // setNavList(navList.filter(n => (n === '/home' || n === item.path) && n));
                 break;
             default:
                 setNavList(['/home']);
@@ -158,6 +168,11 @@ const Navbar: FC<indexProps> = (props) => {
         return currentTitle?.title || '';
     };
 
+    const isShow = (path: string): boolean => {
+        const show = rootRoute.filter(item => item.path.includes(path))[0].noMenu;
+        return !show;
+    }
+
     useEffect(() => {
         document.body.addEventListener('click', hideContentextMenu);
 
@@ -168,10 +183,24 @@ const Navbar: FC<indexProps> = (props) => {
 
     // 保存导航列表
     useEffect(() => {
-        if (!navList.includes(pathname) && pathname !== '/') {
+        let bool = false;
+        MENUS.forEach((item: any) => {
+            // 类似这样的路由 /ad/ 跳转到第一个子路由
+            if (pathname.charAt(pathname.length - 1) === '/') navigate(pathname.substring(0, pathname.length - 1));
+
+            // 判断当前路由有子路由的话，跳转到第一个子路由
+            if ((item?.path === pathname && item?.children)) {
+                bool = true;
+                navigate(item?.children[0]?.path, { replace: true })
+            };
+        });
+
+        // 不加入 导航记录
+        if (!navList.includes(pathname) && pathname !== '/' && !bool && !rootRoute.filter(item => item.path.includes(pathname))[0].noMenu) {
             setNavList([...navList, pathname]);
         }
         setCurrentTab(pathname);
+
     }, [navList, pathname]);
 
     // 导航动画效果
@@ -192,17 +221,19 @@ const Navbar: FC<indexProps> = (props) => {
             else setLeft(currentLeft - elView.offsetWidth / 2);
 
             if (currentLeft - elView.offsetWidth / 2 > tabWidth - elView.offsetWidth) setLeft(tabWidth - elView.offsetWidth);
+        } else {
+            setLeft(0);
         }
     }, [currentTab, navList]);
 
     return (
-        <div className="layout-navbar">
+        <div className="layout-navbar" style={{ width: `calc(100% - ${menuWidth(menuFold)}px)`, left: `${menuWidth(menuFold)}px` }}>
             {/* <LeftOutlined onClick={() => changeTabs('prev')} /> */}
             <div className="layout-navbar-view">
                 <div className="tab" style={{ width: tabWidth + 'px', transform: `translateX(-${left}px)` }}>
                     {
                         navList.map((path: any, idx: number) => (
-                            <div
+                            isShow(path) && <div
                                 className={classnames('tab-item', { active: currentTab === path })}
                                 key={idx}
                                 onClick={(e) => tabClick(path)}

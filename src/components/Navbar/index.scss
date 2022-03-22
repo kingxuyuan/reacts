@@ -1,15 +1,15 @@
 .layout-navbar {
-    width: 100%;
     height: $navbar-height;
-    position: sticky;
+    position: fixed;
     top: $header-height;
-    left: 0;
+    left: $sider-width;
+    right: 0;
     z-index: 1;
     padding: 0 20px;
     box-sizing: border-box;
     background-color: #fff;
     border-bottom: 1px solid #d8dce5;
-    -webkit-box-shadow: 0 1px 3px 0 rgb(0 0 0 / 12%), 0 0 3px 0 rgb(0 0 0 / 4%);
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
     box-shadow: 2px 1px 3px 0 rgb(0 0 0 / 12%), 0 0 3px 0 rgb(0 0 0 / 4%);
     @include flexItemsCenter();
 

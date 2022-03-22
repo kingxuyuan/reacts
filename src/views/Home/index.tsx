@@ -2,7 +2,7 @@
  * @Author: 大侠传授两招吧
  * @Date: 2022-01-24 14:17:08
  * @LastEditors: 大侠传授两招吧
- * @LastEditTime: 2022-01-28 16:56:05
+ * @LastEditTime: 2022-03-16 16:07:32
  * @Description: 
  */
 import { FC, memo } from 'react';
@@ -17,9 +17,6 @@ interface indexProps {}
 const Home: FC<indexProps> = (props) => {
     const configs = useSelector(getConfig);
 
-    console.log(props);
-    
-    
     return (
         <div className="home">
             <h1>Home</h1>
@@ -30,7 +27,7 @@ const Home: FC<indexProps> = (props) => {
             <Link to='/loginss'>错误页面</Link>
             <p>
             {
-                configs?.android_download_link
+                configs.android_download_link
             }
             </p>
             <h3>s</h3>
